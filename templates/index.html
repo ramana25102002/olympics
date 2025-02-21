@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olympics Winners Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Auto-capitalize country input
+            document.getElementById("country").addEventListener("input", function () {
+                this.value = this.value.toUpperCase();
+            });
+
+            // Form validation before submission
+            document.getElementById("searchForm").addEventListener("submit", function (event) {
+                let year = document.getElementById("year").value.trim();
+                let playerName = document.getElementById("player_name").value.trim();
+                let sport = document.getElementById("sport").value.trim();
+                let country = document.getElementById("country").value.trim();
+                let medal = document.getElementById("medal").value.trim();
+
+                if (!year && !playerName && !sport && !country && !medal) {
+                    alert("Please enter at least one search criteria!");
+                    event.preventDefault();
+                }
+            });
+
+            // Smooth scroll effect when clicking search
+            document.getElementById("searchForm").addEventListener("submit", function () {
+                setTimeout(() => {
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+                }, 100);
+            });
+
+            // Reset form fields
+            document.getElementById("resetBtn").addEventListener("click", function () {
+                document.getElementById("searchForm").reset();
+            });
+        });
+    </script>
+</head>
+<body>
+    <h2>Search Olympic Winners</h2>
+    <form id="searchForm" action="/" method="POST">
+        <label for="year">Olympic Year:</label>
+        <input type="number" name="year" id="year" placeholder="e.g. 2016">
+        
+        <label for="player_name">Player Name:</label>
+        <input type="text" name="player_name" id="player_name" placeholder="e.g. Michael Phelps">
+        
+        <label for="sport">Sport:</label>
+        <input type="text" name="sport" id="sport" placeholder="e.g. Swimming">
+
+        <label for="country">Country:</label>
+        <input type="text" name="country" id="country" placeholder="e.g. USA">
+
+        <label for="medal">Medal Type:</label>
+        <select name="medal" id="medal">
+            <option value="">Select Medal</option>
+            <option value="Gold">Gold</option>
+            <option value="Silver">Silver</option>
+            <option value="Bronze">Bronze</option>
+        </select>
+        
+        <button type="submit">Search</button>
+        <button type="button" id="resetBtn">Reset</button>
+    </form>
+</body>
+</html>
